@@ -64,8 +64,6 @@ export const viewport: Viewport = {
   ],
 };
 
-const themeScript = `(function(){try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark"){document.documentElement.setAttribute("data-theme",t)}}catch(e){}})()`;
-
 /** Structured data so search results can resolve the person behind the site. */
 const personSchema = {
   "@context": "https://schema.org",
@@ -97,17 +95,8 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-      // The theme script below writes data-theme before React hydrates.
-      suppressHydrationWarning
     >
       <body className="flex min-h-full flex-col">
-        {/* Applies a saved theme choice before the first paint, so an override
-            never flashes the other theme. Deliberately the first thing in the
-            body and deliberately not a module: it must run synchronously.
-            With no stored choice the attribute stays unset and CSS falls back
-            to the system preference, so this failing is harmless. */}
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
-
         {/* No noscript reveal override needed: content renders visible and the
             reveal script is the only thing that ever hides it. */}
         {children}

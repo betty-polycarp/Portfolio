@@ -27,6 +27,9 @@ export const navLinks = [
   { label: "Work", href: "#work" },
   { label: "Experience", href: "#experience" },
   { label: "Writing", href: "#writing" },
+  // Nav item rather than a button: the header carries no call to action, so
+  // this is the persistent route to contact from anywhere on the page.
+  { label: "Contact", href: "#contact" },
 ] as const;
 
 /**

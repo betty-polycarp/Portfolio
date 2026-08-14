@@ -4,8 +4,8 @@
   Betty Polycarp portfolio: design tokens.
 
   Locks enforced here so no section can drift:
-  1. THEME LOCK      one theme for the whole page. System preference by default,
-                     overridden site wide by the header toggle. Never per section.
+  1. THEME LOCK      one theme for the whole page, following the visitor's
+                     system preference. Never inverted per section.
   2. COLOR LOCK      one accent (burnt orange), used identically in every section.
   3. SHAPE LOCK      one corner-radius scale: sharp (0) on every surface, control and image.
   All contrast pairs below were checked against WCAG AA (4.5:1 body, 3:1 large text).
@@ -13,7 +13,8 @@
   Each token is declared twice on purpose. The first line is a plain light
   value for browsers without light-dark(); the second pairs light and dark in
   one place, so a token can never be updated in one theme and forgotten in the
-  other. Which branch resolves is decided by `color-scheme` below.
+  other. `color-scheme: light dark` is what lets light-dark() resolve against
+  the visitor's system preference.
 */
 
 :root {
@@ -52,15 +53,6 @@
 
   --accent-soft: rgb(194 65 12 / 0.07);
   --accent-soft: light-dark(rgb(194 65 12 / 0.07), rgb(249 115 22 / 0.12));
-}
-
-/* The toggle writes this attribute. An explicit choice always beats the system. */
-:root[data-theme="light"] {
-  color-scheme: light;
-}
-
-:root[data-theme="dark"] {
-  color-scheme: dark;
 }
 
 @theme inline {
@@ -115,46 +107,6 @@ body {
     transparent 1px,
     transparent 9px
   );
-}
-
-/*
-  Theme toggle icon. The button shows the theme it will switch TO.
-  Driven entirely by CSS so it is already correct on first paint, before any
-  JavaScript runs, and cannot hydrate into the wrong icon.
-  light-dark() is colour only, so this branch is written out longhand.
-*/
-.icon-sun {
-  display: none;
-}
-
-.icon-moon {
-  display: block;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .icon-sun {
-    display: block;
-  }
-
-  :root:not([data-theme="light"]) .icon-moon {
-    display: none;
-  }
-}
-
-:root[data-theme="dark"] .icon-sun {
-  display: block;
-}
-
-:root[data-theme="dark"] .icon-moon {
-  display: none;
-}
-
-:root[data-theme="light"] .icon-sun {
-  display: none;
-}
-
-:root[data-theme="light"] .icon-moon {
-  display: block;
 }
 
 /* Horizontal rail: hide the native bar, the section keeps its own controls. */

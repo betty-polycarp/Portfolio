@@ -3,12 +3,16 @@
 import { useEffect, useState } from "react";
 import { List, X } from "@phosphor-icons/react/ssr";
 
-import { cta, navLinks, profile } from "@/lib/content";
+import { navLinks, profile } from "@/lib/content";
 import { Container } from "@/components/ui/primitives";
-import { ThemeToggle } from "@/components/theme-toggle";
 
 /**
  * Sticky header, 64px tall, single line at desktop.
+ *
+ * Navigation only. The contact call to action lives in the hero and again in
+ * the contact section, so repeating it here would be a third instance of the
+ * same intent.
+ *
  * Below `lg` the links collapse into a disclosure panel rather than wrapping
  * to a second row.
  */
@@ -29,11 +33,10 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-canvas/85 backdrop-blur-md">
       <Container>
+        {/* Two visible children at every breakpoint, so justify-between reads
+            as wordmark left and either the nav or the menu button right. */}
         <div className="flex h-16 items-center justify-between gap-8">
-          <a
-            href="#top"
-            className="text-sm font-medium tracking-tight text-ink"
-          >
+          <a href="#top" className="text-sm font-medium tracking-tight text-ink">
             {profile.name}
           </a>
 
@@ -52,31 +55,20 @@ export function SiteHeader() {
             </ul>
           </nav>
 
-          <div className="flex items-center gap-2">
-            <ThemeToggle />
-
-            <a
-              href="#contact"
-              className="hidden border border-ink px-4 py-2 text-sm font-medium text-ink transition-colors duration-200 hover:bg-ink hover:text-canvas active:translate-y-px sm:inline-flex"
-            >
-              {cta.contact}
-            </a>
-
-            <button
-              type="button"
-              onClick={() => setOpen((value) => !value)}
-              aria-expanded={open}
-              aria-controls="mobile-nav"
-              aria-label={open ? "Close menu" : "Open menu"}
-              className="inline-flex size-10 items-center justify-center border border-line text-ink transition-colors duration-200 hover:border-ink active:translate-y-px lg:hidden"
-            >
-              {open ? (
-                <X aria-hidden weight="bold" className="size-5" />
-              ) : (
-                <List aria-hidden weight="bold" className="size-5" />
-              )}
-            </button>
-          </div>
+          <button
+            type="button"
+            onClick={() => setOpen((value) => !value)}
+            aria-expanded={open}
+            aria-controls="mobile-nav"
+            aria-label={open ? "Close menu" : "Open menu"}
+            className="inline-flex size-10 items-center justify-center border border-line text-ink transition-colors duration-200 hover:border-ink active:translate-y-px lg:hidden"
+          >
+            {open ? (
+              <X aria-hidden weight="bold" className="size-5" />
+            ) : (
+              <List aria-hidden weight="bold" className="size-5" />
+            )}
+          </button>
         </div>
       </Container>
 
@@ -99,15 +91,6 @@ export function SiteHeader() {
                   </a>
                 </li>
               ))}
-              <li className="pt-3 pb-1 sm:hidden">
-                <a
-                  href="#contact"
-                  onClick={() => setOpen(false)}
-                  className="inline-flex w-full items-center justify-center bg-accent px-4 py-3 text-sm font-medium text-accent-ink"
-                >
-                  {cta.contact}
-                </a>
-              </li>
             </ul>
           </Container>
         </nav>
