@@ -8,16 +8,15 @@
 export const profile = {
   name: "Betty Polycarp",
   role: "Software engineer and full stack web developer",
-  email: "betty.polycarp@ignition633.org",
+  email: "bettypolycarp2000@gmail.com",
   siteUrl: "https://bettypolycarp.com", // TODO: point at the real domain before deploying.
   summary:
     "Software engineer and full stack web developer building production Laravel, Livewire, React and Next.js applications.",
 } as const;
 
-/** TODO: confirm both handles before publishing. These are assumed, not verified. */
 export const socialLinks = [
-  { label: "GitHub", href: "https://github.com/bettypolycarp" },
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/bettypolycarp" },
+  { label: "GitHub", href: "https://github.com/betty-polycarp" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/betty-polycarp-04a518288" },
 ] as const;
 
 export const navLinks = [
@@ -42,9 +41,9 @@ export const hero = {
   headline: "I build software that solves real problems.",
   subtext:
     "I am Betty Polycarp, a software engineer building full stack web applications with Laravel, Livewire, React and Next.js.",
-  imageId: 36,
+  imageId: "/images/hero-section.jpg",
   imageAlt:
-    "A device taken apart with every component laid out in an ordered grid, photographed from above in black and white.",
+    "A backlit laptop keyboard photographed close up, the keys glowing in the dark.",
 } as const;
 
 export const about = {
@@ -60,10 +59,8 @@ export const about = {
     "AI assisted development with Claude Code",
     "Clean developer workflows and scalable architecture",
   ],
-  imageId: 8,
-  // TODO: replace with a real portrait of Betty.
-  imageAlt:
-    "A laptop, an open notebook and a cup of coffee on a wooden desk, photographed in black and white.",
+  imageId: "/images/about-project.jpeg",
+  imageAlt: "Betty Polycarp.",
 } as const;
 
 export type StackGroup = {
@@ -126,7 +123,7 @@ export const stack = {
     },
   } satisfies Record<string, StackGroup>,
   imageId: 213,
-  imageAlt: "An open sea horizon under a wide sky, photographed in black and white.",
+  imageAlt: "An open sea horizon under a wide sky.",
 } as const;
 
 /**
@@ -173,14 +170,15 @@ export type Project = {
   role: string;
   tech: readonly string[];
   outcome: string;
-  imageId: number;
+  /** A path under `public/` such as "/images/work.jpg", or a Picsum id. */
+  imageId: number | string;
   imageAlt: string;
 };
 
 export const projects = {
-  heading: "Selected work",
+  heading: "Projects",
   intro:
-    "Four projects that show different parts of the job: architecture, data modelling, product thinking and delivery.",
+    "Different projects that show different parts of the job: architecture, data modelling, product thinking and delivery.",
   items: [
     {
       name: "Smart Farming Platform",
@@ -193,9 +191,9 @@ export const projects = {
       tech: ["Laravel", "REST APIs", "MySQL", "JavaScript"],
       outcome:
         "A foundation that can carry real time market information and grow into full farm management.",
-      imageId: 17,
+      imageId: "/images/smart_farm.jpg",
       imageAlt:
-        "A footpath running between open fields toward a treeline, photographed in black and white.",
+        "A centre pivot irrigation boom standing over a field of young green crops.",
     },
     {
       name: "Church Outreach Management System",
@@ -210,7 +208,7 @@ export const projects = {
         "A platform design that keeps outreach records and member engagement in one traceable place.",
       imageId: 192,
       imageAlt:
-        "A hall with tall windows and people seated at long shared tables, photographed in black and white.",
+        "A hall with tall windows and people seated at long shared tables.",
     },
     {
       name: "Memory Vault",
@@ -225,7 +223,7 @@ export const projects = {
         "A roadmap built around usability and storage costs that hold up as the archive grows.",
       imageId: 24,
       imageAlt:
-        "An open book resting on a wooden surface, photographed in black and white.",
+        "An open book resting on a wooden surface.",
     },
     {
       name: "This portfolio",
@@ -240,7 +238,7 @@ export const projects = {
         "An evolving site that shows the engineering approach as much as the work.",
       imageId: 180,
       imageAlt:
-        "A laptop beside a notebook of hand drawn layouts, photographed from above in black and white.",
+        "A laptop beside a notebook of hand drawn layouts, photographed from above.",
     },
   ] satisfies readonly Project[],
 } as const;
