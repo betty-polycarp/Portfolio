@@ -20,7 +20,9 @@ export const socialLinks = [
 ] as const;
 
 export const navLinks = [
-  { label: "About", href: "#about" },
+  // "Home" points at the top of the page, not at the about section, because
+  // that is what the label promises.
+  { label: "Home", href: "#top" },
   { label: "Stack", href: "#stack" },
   { label: "Work", href: "#work" },
   { label: "Experience", href: "#experience" },
