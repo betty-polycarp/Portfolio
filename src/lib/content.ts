@@ -1,0 +1,347 @@
+/**
+ * Every visible string on the page lives here.
+ *
+ * Two reasons: the copy can be audited in one file (no em-dashes, no
+ * en-dashes, one voice), and Betty can edit the site without touching layout.
+ */
+
+export const profile = {
+  name: "Betty Polycarp",
+  role: "Software engineer and full stack web developer",
+  email: "betty.polycarp@ignition633.org",
+  siteUrl: "https://bettypolycarp.com", // TODO: point at the real domain before deploying.
+  summary:
+    "Software engineer and full stack web developer building production Laravel, Livewire, React and Next.js applications.",
+} as const;
+
+/** TODO: confirm both handles before publishing. These are assumed, not verified. */
+export const socialLinks = [
+  { label: "GitHub", href: "https://github.com/bettypolycarp" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/bettypolycarp" },
+] as const;
+
+export const navLinks = [
+  { label: "About", href: "#about" },
+  { label: "Stack", href: "#stack" },
+  { label: "Work", href: "#work" },
+  { label: "Experience", href: "#experience" },
+  { label: "Writing", href: "#writing" },
+] as const;
+
+/**
+ * One label per intent, used everywhere on the page.
+ * contact intent  -> "Let's talk"
+ * portfolio intent -> "View my work"
+ */
+export const cta = {
+  contact: "Let's talk",
+  work: "View my work",
+} as const;
+
+export const hero = {
+  headline: "I build software that solves real problems.",
+  subtext:
+    "I am Betty Polycarp, a software engineer building full stack web applications with Laravel, Livewire, React and Next.js.",
+  imageId: 36,
+  imageAlt:
+    "A device taken apart with every component laid out in an ordered grid, photographed from above in black and white.",
+} as const;
+
+export const about = {
+  heading: "How I got here",
+  lead: "I am a software engineer with a strong focus on Laravel and modern web technologies. I turn business ideas into reliable software, and I keep the codebase clean enough that the next person can extend it safely.",
+  body: [
+    "Over the past few years I have worked across backend development, frontend integration, database design, testing, and long term maintenance. The part I enjoy most is tracing a difficult bug through a large codebase and fixing the cause instead of the symptom.",
+    "Outside client work I am usually learning. Right now that means AI assisted development with Claude Code, frontend engineering with Next.js, and building small products that solve practical problems.",
+  ],
+  nowHeading: "Working on now",
+  now: [
+    "Laravel, Livewire, React and Next.js in production",
+    "AI assisted development with Claude Code",
+    "Clean developer workflows and scalable architecture",
+  ],
+  imageId: 8,
+  // TODO: replace with a real portrait of Betty.
+  imageAlt:
+    "A laptop, an open notebook and a cup of coffee on a wooden desk, photographed in black and white.",
+} as const;
+
+export type StackGroup = {
+  name: string;
+  note: string;
+  items: readonly string[];
+};
+
+export const stack = {
+  heading: "What I build with",
+  groups: {
+    backend: {
+      name: "Backend",
+      note: "Where most of my time goes. Services, jobs and events behind thin controllers.",
+      items: [
+        "PHP",
+        "Laravel",
+        "Livewire",
+        "REST APIs",
+        "Authentication",
+        "Queues",
+      ],
+    },
+    frontend: {
+      name: "Frontend",
+      note: "Interfaces that match the services behind them.",
+      items: [
+        "JavaScript",
+        "React",
+        "Next.js",
+        "Tailwind CSS",
+        "HTML",
+        "CSS",
+      ],
+    },
+    databases: {
+      name: "Databases",
+      note: "Schema first, always.",
+      items: ["MySQL", "SQLite", "Schema design", "Migrations"],
+    },
+    tools: {
+      name: "Tools",
+      note: "The daily loop.",
+      items: ["Git", "GitHub", "Composer", "VS Code", "Claude Code"],
+    },
+    testing: {
+      name: "Testing",
+      note: "Enough coverage to change things without fear.",
+      items: ["Feature tests", "Manual QA", "Code review", "Debugging"],
+    },
+    emerging: {
+      name: "Learning next",
+      note: "Where I am spending my curiosity, honestly labelled as in progress.",
+      items: [
+        "Software architecture",
+        "System design",
+        "AI assisted workflows",
+        "Web3 fundamentals",
+      ],
+    },
+  } satisfies Record<string, StackGroup>,
+  imageId: 213,
+  imageAlt: "An open sea horizon under a wide sky, photographed in black and white.",
+} as const;
+
+/**
+ * TODO: Betty to replace the year labels and add employer names.
+ * The progression below is taken from her own account of the work
+ * (backend, frontend integration, database design, testing, maintenance).
+ * The dates are a scaffold, not a verified employment record.
+ */
+export const experience = {
+  heading: "How I have grown",
+  entries: [
+    {
+      period: "2022",
+      title: "First production work",
+      body: "Joined an existing Laravel codebase and shipped features against real users. Learned that most of engineering is reading code you did not write.",
+      tags: ["Laravel", "MySQL", "Git"],
+    },
+    {
+      period: "2023",
+      title: "Owning the backend",
+      body: "Took responsibility for schema design, REST endpoints and authentication. Started reviewing pull requests and writing the tests that caught regressions.",
+      tags: ["REST APIs", "Schema design", "Authentication"],
+    },
+    {
+      period: "2024 to 2025",
+      title: "Full stack delivery",
+      body: "Owned features end to end, from migration to deployed screen, in Livewire and React. Debugging other people's edge cases became the fastest way to learn a system.",
+      tags: ["Livewire", "React", "Testing"],
+    },
+    {
+      period: "2026 to now",
+      title: "Architecture and tooling",
+      body: "Designing systems before building them, working in Next.js, and using AI assisted workflows to move faster without losing control of the codebase.",
+      tags: ["Next.js", "Architecture", "Claude Code"],
+    },
+  ],
+} as const;
+
+export type Project = {
+  name: string;
+  tagline: string;
+  problem: string;
+  solution: string;
+  role: string;
+  tech: readonly string[];
+  outcome: string;
+  imageId: number;
+  imageAlt: string;
+};
+
+export const projects = {
+  heading: "Selected work",
+  intro:
+    "Four projects that show different parts of the job: architecture, data modelling, product thinking and delivery.",
+  items: [
+    {
+      name: "Smart Farming Platform",
+      tagline: "Agricultural management with live commodity pricing",
+      problem:
+        "Farmers and agribusinesses track commodity prices across scattered sources, so the number they act on is often already stale.",
+      solution:
+        "I designed the platform architecture, researched live agricultural pricing APIs, and planned backend services that can ingest market data without blocking the rest of the app.",
+      role: "Architecture and backend design",
+      tech: ["Laravel", "REST APIs", "MySQL", "JavaScript"],
+      outcome:
+        "A foundation that can carry real time market information and grow into full farm management.",
+      imageId: 17,
+      imageAlt:
+        "A footpath running between open fields toward a treeline, photographed in black and white.",
+    },
+    {
+      name: "Church Outreach Management System",
+      tagline: "Outreach and follow up, off paper",
+      problem:
+        "Outreach is still recorded in notebooks, so new contacts, follow ups and department handovers get lost between events.",
+      solution:
+        "I modelled the relationships between members, departments and follow up cycles, then planned the automated workflows that move a new contact through them.",
+      role: "System design and data modelling",
+      tech: ["Laravel", "MySQL", "Schema design", "Workflow design"],
+      outcome:
+        "A platform design that keeps outreach records and member engagement in one traceable place.",
+      imageId: 192,
+      imageAlt:
+        "A hall with tall windows and people seated at long shared tables, photographed in black and white.",
+    },
+    {
+      name: "Memory Vault",
+      tagline: "Private cloud storage for personal archives",
+      problem:
+        "General cloud drives are built for files, not for memories, so people lose the thread of what they saved and why.",
+      solution:
+        "I designed the MVP: authentication, storage management, folder based organisation, and a premium tier that stays cheap to run as it scales.",
+      role: "Product and architecture",
+      tech: ["Laravel", "Authentication", "File storage", "Schema design"],
+      outcome:
+        "A roadmap built around usability and storage costs that hold up as the archive grows.",
+      imageId: 24,
+      imageAlt:
+        "An open book resting on a wooden surface, photographed in black and white.",
+    },
+    {
+      name: "This portfolio",
+      tagline: "A developer site that does not look generated",
+      problem:
+        "Most developer portfolios look the same, so the site says nothing about how the developer actually thinks.",
+      solution:
+        "Built in Next.js with reusable Claude Skills driving the design rules, so the layout system is documented and repeatable rather than copied from a template.",
+      role: "Design and build",
+      tech: ["Next.js", "React", "Tailwind CSS", "Claude Code"],
+      outcome:
+        "An evolving site that shows the engineering approach as much as the work.",
+      imageId: 180,
+      imageAlt:
+        "A laptop beside a notebook of hand drawn layouts, photographed from above in black and white.",
+    },
+  ] satisfies readonly Project[],
+} as const;
+
+export const process = {
+  heading: "How I work",
+  intro:
+    "The same five moves on every project, whether it is a two week fix or a new platform.",
+  steps: [
+    {
+      name: "Understand",
+      body: "Ask what the user actually needs, what the business measures, and what already exists in the codebase.",
+    },
+    {
+      name: "Plan",
+      body: "Model the data first. Decide the boundaries, the routes and the failure cases before the first migration.",
+    },
+    {
+      name: "Build",
+      body: "Small commits, readable names, thin controllers. Ship a working slice early instead of a perfect module late.",
+    },
+    {
+      name: "Test",
+      body: "Feature tests on the paths that carry money or data. Manual passes on everything a real user touches.",
+    },
+    {
+      name: "Improve",
+      body: "Watch how it behaves in production, fix the cause instead of the symptom, and remove what is no longer used.",
+    },
+  ],
+} as const;
+
+export const thinking = {
+  heading: "How I think about systems",
+  intro:
+    "The opinions I bring to a codebase before anyone asks me to write a line of it.",
+  principles: [
+    {
+      title: "Architecture",
+      body: "I design around boundaries. Services, jobs and events keep controllers thin and make the next feature cheaper to add than the last one.",
+    },
+    {
+      title: "Data modelling",
+      body: "The schema is the product. Normalise first, index for the queries that actually run, and keep every migration reversible.",
+    },
+    {
+      title: "API design",
+      body: "Predictable resources, honest status codes, versioned when they need to be. The contract matters more than the framework serving it.",
+    },
+    {
+      title: "Testing",
+      body: "Tests exist so I can change things safely. I cover the paths that break quietly, not every getter on every model.",
+    },
+    {
+      title: "Performance and debugging",
+      body: "Measure before optimising. Most Laravel slowness is an N+1 query or a missing index, not the language.",
+    },
+  ],
+} as const;
+
+/** TODO: replace with real published posts once they ship. Status labels are accurate today. */
+export const writing = {
+  heading: "Writing and learning",
+  notesHeading: "Notes in progress",
+  notes: [
+    {
+      title: "Why I model the database before I write a single route",
+      topic: "Laravel",
+      status: "Draft",
+    },
+    {
+      title: "Reading a large Laravel codebase you did not write",
+      topic: "Debugging",
+      status: "Draft",
+    },
+    {
+      title: "What AI assisted development actually changed in my workflow",
+      topic: "Tooling",
+      status: "Outline",
+    },
+  ],
+  learningHeading: "Currently learning",
+  learning: [
+    "Software architecture",
+    "System design",
+    "Next.js App Router",
+    "Testing patterns",
+    "Web3 fundamentals",
+    "Product thinking",
+  ],
+} as const;
+
+export const contact = {
+  heading: "Have a problem worth solving?",
+  body: "I am open to full stack roles, Laravel contract work, and collaborations on products that need to actually ship.",
+  emailLabel: "Copy email address",
+  emailCopied: "Email copied",
+  emailFailed: "Copy failed, the address is above",
+} as const;
+
+export const footer = {
+  note: "Built with Next.js and Tailwind CSS.",
+  copyright: `${new Date().getFullYear()} Betty Polycarp`,
+} as const;
