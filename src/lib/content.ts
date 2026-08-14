@@ -26,7 +26,6 @@ export const navLinks = [
   { label: "Stack", href: "#stack" },
   { label: "Work", href: "#work" },
   { label: "Experience", href: "#experience" },
-  { label: "Writing", href: "#writing" },
   // Nav item rather than a button: the header carries no call to action, so
   // this is the persistent route to contact from anywhere on the page.
   { label: "Contact", href: "#contact" },
@@ -43,9 +42,9 @@ export const cta = {
 } as const;
 
 export const hero = {
-  headline: "I build software that solves real problems.",
+  headline: "I make complex things feel simple.",
   subtext:
-    "I am Betty Polycarp, a software engineer building full stack web applications with Laravel, Livewire, React and Next.js.",
+    "I am Betty Polycarp, a software engineer who builds digital products that turn complex ideas and real world problems into simple, useful experiences.",
   imageId: "/images/hero-section.jpg",
   imageAlt:
     "A backlit laptop keyboard photographed close up, the keys glowing in the dark.",
@@ -97,6 +96,7 @@ export const stack = {
         "React",
         "Next.js",
         "Tailwind CSS",
+        "Bootstrap",
         "HTML",
         "CSS",
       ],
@@ -104,17 +104,40 @@ export const stack = {
     databases: {
       name: "Databases",
       note: "Schema first, always.",
-      items: ["MySQL", "SQLite", "Schema design", "Migrations"],
+      items: [
+        "MySQL",
+        "PostgreSQL",
+        "SQLite",
+        "Schema design",
+        "Migrations",
+        "Eloquent ORM",
+      ],
     },
     tools: {
-      name: "Tools",
-      note: "The daily loop.",
-      items: ["Git", "GitHub", "Composer", "VS Code", "Claude Code"],
+      name: "Tools and DevOps",
+      note: "The daily loop, from first commit to deploy.",
+      items: [
+        "Git",
+        "GitHub",
+        "Bitbucket",
+        "Composer",
+        "NPM",
+        "Docker",
+        "CI/CD",
+        "VS Code",
+        "Claude Code",
+      ],
     },
     testing: {
       name: "Testing",
       note: "Enough coverage to change things without fear.",
-      items: ["Feature tests", "Manual QA", "Code review", "Debugging"],
+      items: [
+        "PHPUnit",
+        "Feature tests",
+        "Manual QA",
+        "Code review",
+        "Debugging",
+      ],
     },
     emerging: {
       name: "Learning next",
@@ -123,7 +146,11 @@ export const stack = {
         "Software architecture",
         "System design",
         "AI assisted workflows",
-        "Web3 fundamentals",
+        "Blockchain",
+        "Web3",
+        "Smart contracts",
+        "DeFi",
+        "Prediction markets",
       ],
     },
   } satisfies Record<string, StackGroup>,
@@ -304,35 +331,91 @@ export const thinking = {
   ],
 } as const;
 
-/** TODO: replace with real published posts once they ship. Status labels are accurate today. */
-export const writing = {
-  heading: "Writing and learning",
-  notesHeading: "Notes in progress",
-  notes: [
+/**
+ * Fourteen capabilities, grouped into four clusters. The clusters preserve the
+ * original order exactly, so nothing is reordered, but they break what would
+ * otherwise be a fourteen row list into scannable chunks.
+ */
+export const expertise = {
+  heading: "My expertise",
+  intro: "What I do",
+  groups: [
     {
-      title: "Why I model the database before I write a single route",
-      topic: "Laravel",
-      status: "Draft",
+      name: "Building applications",
+      items: [
+        {
+          title: "Full stack web development",
+          body: "Building complete web applications from the frontend to backend, database, APIs, and authentication.",
+        },
+        {
+          title: "Backend development",
+          body: "Strong focus on PHP and Laravel, including application architecture, business logic, APIs, database operations, and backend features.",
+        },
+        {
+          title: "Laravel and Livewire",
+          body: "Developing dynamic, server driven applications with Laravel and Livewire.",
+        },
+        {
+          title: "Frontend development",
+          body: "Building responsive and interactive interfaces using JavaScript, React, Next.js, HTML, CSS, Tailwind CSS, and Bootstrap.",
+        },
+      ],
     },
     {
-      title: "Reading a large Laravel codebase you did not write",
-      topic: "Debugging",
-      status: "Draft",
+      name: "Data and integration",
+      items: [
+        {
+          title: "API development and integration",
+          body: "Designing and consuming APIs, connecting applications to external services, and handling data exchange between systems.",
+        },
+        {
+          title: "Database development",
+          body: "Working with MySQL, SQLite, PostgreSQL, database schemas, migrations, queries, and ORM based data management.",
+        },
+      ],
     },
     {
-      title: "What AI assisted development actually changed in my workflow",
-      topic: "Tooling",
-      status: "Outline",
+      name: "Architecture and quality",
+      items: [
+        {
+          title: "System architecture",
+          body: "Understanding and implementing concepts such as monoliths, modular applications, microservices, event driven architecture, and system decomposition.",
+        },
+        {
+          title: "Testing and quality assurance",
+          body: "Writing and maintaining automated tests with PHPUnit, debugging applications, validating features, and improving software reliability.",
+        },
+        {
+          title: "DevOps and development workflows",
+          body: "Working with Git, GitHub, Bitbucket, CI/CD, Composer, NPM, Docker, and deployment workflows.",
+        },
+        {
+          title: "Performance and reliability",
+          body: "Debugging production issues, optimising queries and application logic, and improving application stability.",
+        },
+        {
+          title: "Problem solving and debugging",
+          body: "Investigating complex bugs across the frontend, backend, database, testing, and deployment layers.",
+        },
+      ],
     },
-  ],
-  learningHeading: "Currently learning",
-  learning: [
-    "Software architecture",
-    "System design",
-    "Next.js App Router",
-    "Testing patterns",
-    "Web3 fundamentals",
-    "Product thinking",
+    {
+      name: "Product and what is next",
+      items: [
+        {
+          title: "Software product development",
+          body: "Turning ideas into functional products, from defining the problem and designing features to building and testing the application.",
+        },
+        {
+          title: "AI and emerging technology",
+          body: "Exploring AI, blockchain, Web3, DeFi, smart contracts, and prediction markets, with an interest in applying emerging technologies to real world problems.",
+        },
+        {
+          title: "Technical research and learning",
+          body: "Strong interest in researching technologies, understanding how systems work, and continuously expanding my technical capabilities.",
+        },
+      ],
+    },
   ],
 } as const;
 

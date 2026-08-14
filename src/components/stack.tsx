@@ -9,8 +9,9 @@ import { Reveal } from "@/components/ui/reveal";
  * Layout family: bento composition.
  *
  * Six groups, six cells, no filler tile and no cell taller than its content.
- * Row rhythm is 7+5, then 5+3+4, then one full width row, so the grid never
- * settles into equal columns. Hairline gaps replace card containers.
+ * Row rhythm is 6+6, then 7+5, then 4+8, so the grid never settles into one
+ * repeated column width. The widest cell carries the longest tag list.
+ * Hairline gaps replace card containers.
  * Three cells carry visual variation (surface tint, hatch pattern, photograph).
  * Mobile: single column stack.
  */
@@ -68,18 +69,19 @@ export function Stack() {
 
         <Reveal delay={0.06}>
           <div className="mt-10 grid grid-cols-1 gap-px border border-line bg-line md:mt-14 md:auto-rows-[minmax(11rem,auto)] md:grid-cols-12">
-            <Cell group={groups.backend} wash="surface" className="md:col-span-7" />
+            <Cell group={groups.backend} wash="surface" className="md:col-span-6" />
+            <Cell group={groups.frontend} wash="hatch" className="md:col-span-6" />
+
+            <Cell group={groups.tools} className="md:col-span-7" />
             <Cell group={groups.databases} className="md:col-span-5" />
 
-            <Cell group={groups.frontend} wash="hatch" className="md:col-span-5" />
-            <Cell group={groups.tools} className="md:col-span-3" />
             <Cell group={groups.testing} className="md:col-span-4" />
 
-            <div className="grid grid-cols-1 bg-canvas md:col-span-12 md:grid-cols-12">
-              <div className="flex flex-col p-6 md:col-span-8 md:p-8">
+            <div className="grid grid-cols-1 bg-canvas md:col-span-8 md:grid-cols-12">
+              <div className="flex flex-col p-6 md:col-span-7 md:p-8">
                 <CellBody group={groups.emerging} />
               </div>
-              <div className="relative order-first min-h-44 md:order-0 md:col-span-4 md:min-h-full">
+              <div className="relative order-first min-h-44 md:order-0 md:col-span-5 md:min-h-full">
                 <Image
                   src={photo(stack.imageId, 900, 600)}
                   alt={stack.imageAlt}

@@ -6,14 +6,14 @@ import { Experience } from "@/components/experience";
 import { Projects } from "@/components/projects";
 import { Process } from "@/components/process";
 import { TechnicalThinking } from "@/components/technical-thinking";
-import { Writing } from "@/components/writing";
+import { Expertise } from "@/components/expertise";
 import { Contact } from "@/components/contact";
 import { SiteFooter } from "@/components/site-footer";
 
 /**
  * Nine sections, nine layout families:
  * hero split, editorial split, bento, timeline, asymmetric showcase,
- * horizontal rail, large type statements, list plus cluster, minimal CTA.
+ * horizontal rail, large type statements, grouped index, minimal CTA.
  */
 export default function Home() {
   return (
@@ -35,7 +35,7 @@ export default function Home() {
         <Projects />
         <Process />
         <TechnicalThinking />
-        <Writing />
+        <Expertise />
         <Contact />
       </main>
 
