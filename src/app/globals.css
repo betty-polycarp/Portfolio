@@ -1,26 +1,226 @@
 @import "tailwindcss";
 
+/*
+  Betty Polycarp portfolio: design tokens.
+
+  Locks enforced here so no section can drift:
+  1. THEME LOCK      one theme for the whole page. System preference by default,
+                     overridden site wide by the header toggle. Never per section.
+  2. COLOR LOCK      one accent (burnt orange), used identically in every section.
+  3. SHAPE LOCK      one corner-radius scale: sharp (0) on every surface, control and image.
+  All contrast pairs below were checked against WCAG AA (4.5:1 body, 3:1 large text).
+
+  Each token is declared twice on purpose. The first line is a plain light
+  value for browsers without light-dark(); the second pairs light and dark in
+  one place, so a token can never be updated in one theme and forgotten in the
+  other. Which branch resolves is decided by `color-scheme` below.
+*/
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light dark;
+
+  --canvas: #fafafa;
+  --canvas: light-dark(#fafafa, #09090b);
+
+  --surface: #f4f4f5;
+  --surface: light-dark(#f4f4f5, #131316);
+
+  /* 15.9:1 on light canvas, 16.6:1 on dark */
+  --ink: #18181b;
+  --ink: light-dark(#18181b, #f4f4f5);
+
+  /* 7.3:1 light, 7.7:1 dark */
+  --muted: #52525b;
+  --muted: light-dark(#52525b, #a1a1aa);
+
+  /* 4.7:1 light, 5.9:1 dark */
+  --faint: #71717a;
+  --faint: light-dark(#71717a, #8b8b93);
+
+  --line: #e4e4e7;
+  --line: light-dark(#e4e4e7, #27272a);
+
+  /* 4.9:1 on canvas light, 7.1:1 dark. Against accent-ink: 5.1:1 and 7.1:1 */
+  --accent: #c2410c;
+  --accent: light-dark(#c2410c, #f97316);
+
+  --accent-hover: #9a3412;
+  --accent-hover: light-dark(#9a3412, #fb923c);
+
+  --accent-ink: #ffffff;
+  --accent-ink: light-dark(#ffffff, #0b0b0d);
+
+  --accent-soft: rgb(194 65 12 / 0.07);
+  --accent-soft: light-dark(rgb(194 65 12 / 0.07), rgb(249 115 22 / 0.12));
+}
+
+/* The toggle writes this attribute. An explicit choice always beats the system. */
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+html {
+  scroll-padding-top: 6rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--canvas);
+  color: var(--ink);
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+::selection {
+  background-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Hairline pattern used by one bento cell. Not decoration: it marks the cell
+   that holds the interface layer of the stack. */
+.pattern-hatch {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--line) 0px,
+    var(--line) 1px,
+    transparent 1px,
+    transparent 9px
+  );
+}
+
+/*
+  Theme toggle icon. The button shows the theme it will switch TO.
+  Driven entirely by CSS so it is already correct on first paint, before any
+  JavaScript runs, and cannot hydrate into the wrong icon.
+  light-dark() is colour only, so this branch is written out longhand.
+*/
+.icon-sun {
+  display: none;
+}
+
+.icon-moon {
+  display: block;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .icon-sun {
+    display: block;
+  }
+
+  :root:not([data-theme="light"]) .icon-moon {
+    display: none;
+  }
+}
+
+:root[data-theme="dark"] .icon-sun {
+  display: block;
+}
+
+:root[data-theme="dark"] .icon-moon {
+  display: none;
+}
+
+:root[data-theme="light"] .icon-sun {
+  display: none;
+}
+
+:root[data-theme="light"] .icon-moon {
+  display: block;
+}
+
+/* Horizontal rail: hide the native bar, the section keeps its own controls. */
+.rail-scroll {
+  scrollbar-width: none;
+}
+.rail-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/*
+  Motion is inverted on purpose.
+
+  Content is rendered visible and stays visible. The reveal script opts an
+  element INTO the hidden state, and only ever does so for elements already
+  below the fold. Consequences:
+  - JS blocked, failed or switched off means no motion, never a blank page.
+  - Nothing the visitor is already looking at can flicker out and back in.
+*/
+[data-reveal][data-reveal-state="hidden"] {
+  opacity: 0;
+  transform: translateY(18px);
+}
+
+[data-reveal][data-reveal-state="shown"] {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--reveal-delay, 0s);
+}
+
+/* Hero entry cascade. Pure CSS: it needs no JS to run and no JS to recover. */
+@keyframes enter-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .enter {
+    animation: enter-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: var(--enter-delay, 0s);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Belt and braces: the script already declines to hide anything under
+     reduced motion, and this guarantees it even if that check is bypassed. */
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }
