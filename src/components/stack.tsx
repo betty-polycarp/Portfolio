@@ -85,7 +85,7 @@ export function Stack() {
                   alt={stack.imageAlt}
                   fill
                   sizes="(min-width: 768px) 34vw, 100vw"
-                  className="object-cover grayscale"
+                  className="object-cover"
                 />
               </div>
             </div>

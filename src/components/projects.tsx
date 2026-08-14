@@ -31,7 +31,7 @@ function ProjectMedia({
         alt={project.imageAlt}
         fill
         sizes={sizes}
-        className="object-cover grayscale"
+        className="object-cover"
       />
     </div>
   );

@@ -43,7 +43,7 @@ export function About() {
                 alt={about.imageAlt}
                 fill
                 sizes="(min-width: 1024px) 30vw, 100vw"
-                className="object-cover grayscale"
+                className="object-cover"
               />
             </div>
 

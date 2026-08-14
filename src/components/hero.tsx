@@ -46,7 +46,7 @@ export function Hero() {
                 sizes="(min-width: 1024px) 38vw, 100vw"
                 loading="eager"
                 fetchPriority="high"
-                className="object-cover grayscale"
+                className="object-cover"
               />
             </div>
           </Enter>
