@@ -109,6 +109,19 @@ body {
   );
 }
 
+/* First screenful. The sticky header is 64px and sits in normal flow, so the
+   hero takes exactly the rest of the viewport and the two together fill it.
+
+   Declared twice, same reason as the tokens above: the plain vh line is the
+   fallback, svh is what browsers that understand it use. svh and not dvh on
+   purpose. dvh grows and shrinks as mobile browser chrome retracts, which
+   would resize the hero mid scroll; svh is the chrome-visible height, so the
+   headline and both buttons are reachable without scrolling and never move. */
+.hero-screen {
+  min-height: calc(100vh - 4rem);
+  min-height: calc(100svh - 4rem);
+}
+
 /* Horizontal rail: hide the native bar, the section keeps its own controls. */
 .rail-scroll {
   scrollbar-width: none;

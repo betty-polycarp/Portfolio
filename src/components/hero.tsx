@@ -1,56 +1,59 @@
-import Image from "next/image";
-
 import { cta, hero } from "@/lib/content";
-import { photo } from "@/lib/utils";
 import { ButtonLink, Container, Enter } from "@/components/ui/primitives";
 
 /**
- * Layout family: asymmetric split hero.
+ * Layout family: single column type-led hero, one full screen tall.
  * Three text elements only (headline, subtext, CTA pair). No eyebrow,
- * no trust strip, no scroll cue.
+ * no trust strip, no scroll cue, no image.
+ *
+ * It fills the first screenful (see `.hero-screen`) and centres its block in
+ * whatever height that leaves. The padding is a floor, not the spacing: on a
+ * viewport too short to centre in, the section grows past the minimum and the
+ * padding is what keeps the type off the header and the next section.
+ *
+ * The headline carries the whole opening. It is the largest type on the page
+ * and the first thing painted, which is the point: nothing decorative gets to
+ * outrank the one sentence that has to land.
  */
 export function Hero() {
   return (
-    <section id="top" className="pt-14 pb-20 md:pt-20 md:pb-28 lg:pt-24 lg:pb-32">
+    <section
+      id="top"
+      className="hero-screen flex flex-col justify-center py-12 md:py-20 lg:py-24"
+    >
       <Container>
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-start lg:gap-16">
-          <div className="lg:col-span-7">
-            <Enter>
-              <h1 className="max-w-[16ch] text-4xl font-medium tracking-tight text-ink md:text-5xl lg:text-6xl lg:leading-[1.04]">
-                {hero.headline}
-              </h1>
-            </Enter>
+        <Enter>
+          {/* Both sizing rules are load bearing, for the same reason: they
+              keep "feel simple." whole on its own line, which is the point of
+              the sentence. 16ch sets the break at desktop; the fluid clamp
+              keeps narrow phones off a three line rag with an orphan. */}
+          <h1 className="max-w-[16ch] text-[clamp(2rem,10vw,2.5rem)] leading-[1.05] font-medium tracking-tight text-ink md:text-7xl lg:text-8xl lg:leading-[0.98]">
+            {hero.headline}
+          </h1>
+        </Enter>
 
-            <Enter delay={0.08}>
-              <p className="mt-6 max-w-[52ch] text-base leading-relaxed text-muted md:text-lg">
-                {hero.subtext}
-              </p>
-            </Enter>
-
-            <Enter delay={0.16}>
-              <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
-                <ButtonLink href="#work">{cta.work}</ButtonLink>
-                <ButtonLink href="#contact" variant="secondary">
-                  {cta.contact}
-                </ButtonLink>
-              </div>
-            </Enter>
+        {/* Both paragraphs are one beat in the cascade, not two: they read as
+            a single intro, and staggering them would make the second look like
+            an afterthought arriving late. */}
+        <Enter delay={0.08}>
+          <div className="mt-8 max-w-[52ch] space-y-4 md:mt-10">
+            <p className="text-base leading-relaxed text-muted md:text-lg">
+              {hero.subtext}
+            </p>
+            <p className="text-base leading-relaxed text-muted md:text-lg">
+              {hero.detail}
+            </p>
           </div>
+        </Enter>
 
-          <Enter delay={0.12} className="lg:col-span-5 lg:col-start-8">
-            <div className="relative aspect-4/3 w-full overflow-hidden bg-surface lg:aspect-5/6">
-              <Image
-                src={photo(hero.imageId, 1000, 1200)}
-                alt={hero.imageAlt}
-                fill
-                sizes="(min-width: 1024px) 38vw, 100vw"
-                loading="eager"
-                fetchPriority="high"
-                className="object-cover"
-              />
-            </div>
-          </Enter>
-        </div>
+        <Enter delay={0.16}>
+          <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <ButtonLink href="#work">{cta.work}</ButtonLink>
+            <ButtonLink href="#contact" variant="secondary">
+              {cta.contact}
+            </ButtonLink>
+          </div>
+        </Enter>
       </Container>
     </section>
   );

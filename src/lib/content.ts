@@ -45,9 +45,8 @@ export const hero = {
   headline: "I make complex things feel simple.",
   subtext:
     "I am Betty Polycarp, a software engineer who builds digital products that turn complex ideas and real world problems into simple, useful experiences.",
-  imageId: "/images/hero-section.jpg",
-  imageAlt:
-    "A backlit laptop keyboard photographed close up, the keys glowing in the dark.",
+  detail:
+    "My work spans full stack engineering, building practical digital products from robust backend systems and APIs to intuitive, high-performing web interfaces.",
 } as const;
 
 /**
