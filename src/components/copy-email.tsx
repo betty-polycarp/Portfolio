@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Check, Copy, Warning } from "@phosphor-icons/react/ssr";
 
 import { contact, profile } from "@/lib/content";
@@ -10,6 +10,38 @@ type CopyState = "idle" | "copied" | "error";
 
 const icons = { idle: Copy, copied: Check, error: Warning } as const;
 
+/** How long a result stays on the button before it returns to idle. */
+const RESULT_MS = 2600;
+
+/**
+ * Synchronous copy for the case the async Clipboard API cannot serve: it is
+ * absent on every non-secure origin, and reading the site over a LAN IP on a
+ * phone is exactly that. execCommand is deprecated but still implemented
+ * everywhere, so it sits behind the modern path rather than replacing it.
+ *
+ * Must stay synchronous. Browsers only honour it inside the click that asked
+ * for it, so awaiting anything first would forfeit the gesture.
+ */
+function copySync(text: string): boolean {
+  const field = document.createElement("textarea");
+  field.value = text;
+  field.setAttribute("readonly", "");
+  field.style.position = "fixed";
+  field.style.top = "0";
+  field.style.opacity = "0";
+
+  document.body.append(field);
+  field.select();
+
+  try {
+    return document.execCommand("copy");
+  } catch {
+    return false;
+  } finally {
+    field.remove();
+  }
+}
+
 /**
  * Full interaction cycle for the one control on the page that can fail:
  * idle, success, and an error path for browsers that refuse clipboard access
@@ -17,20 +49,43 @@ const icons = { idle: Copy, copied: Check, error: Warning } as const;
  */
 export function CopyEmail() {
   const [state, setState] = useState<CopyState>("idle");
+  const timer = useRef<number | null>(null);
 
+  // A pending reset must not fire into an unmounted component.
   useEffect(() => {
-    if (state === "idle") return;
+    return () => {
+      if (timer.current !== null) window.clearTimeout(timer.current);
+    };
+  }, []);
 
-    const timer = window.setTimeout(() => setState("idle"), 2600);
-    return () => window.clearTimeout(timer);
-  }, [state]);
+  /**
+   * The reset timer is owned here rather than by an effect keyed on state:
+   * copying twice in a row lands on the same state value, which renders
+   * nothing new, so an effect would never re-run and the second click would
+   * inherit the first click's countdown.
+   */
+  const settle = (next: Exclude<CopyState, "idle">) => {
+    setState(next);
+
+    if (timer.current !== null) window.clearTimeout(timer.current);
+    timer.current = window.setTimeout(() => {
+      timer.current = null;
+      setState("idle");
+    }, RESULT_MS);
+  };
 
   const copy = async () => {
+    // Checked before any await, so the fallback still holds the user gesture.
+    if (!navigator.clipboard?.writeText) {
+      settle(copySync(profile.email) ? "copied" : "error");
+      return;
+    }
+
     try {
       await navigator.clipboard.writeText(profile.email);
-      setState("copied");
+      settle("copied");
     } catch {
-      setState("error");
+      settle("error");
     }
   };
 

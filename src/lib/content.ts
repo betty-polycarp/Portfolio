@@ -50,13 +50,43 @@ export const hero = {
     "A backlit laptop keyboard photographed close up, the keys glowing in the dark.",
 } as const;
 
+/**
+ * A block of the about narrative. `emphasis` marks the short standalone lines
+ * that are written as beats rather than paragraphs, so the layout can give
+ * them their own weight instead of flattening ten blocks into one wall.
+ */
+export type AboutBlock = { text: string; emphasis?: boolean };
+
 export const about = {
   heading: "How I got here",
-  lead: "I am a software engineer with a strong focus on Laravel and modern web technologies. I turn business ideas into reliable software, and I keep the codebase clean enough that the next person can extend it safely.",
+  lead: "My journey into software engineering started with curiosity.",
   body: [
-    "Over the past few years I have worked across backend development, frontend integration, database design, testing, and long term maintenance. The part I enjoy most is tracing a difficult bug through a large codebase and fixing the cause instead of the symptom.",
-    "Outside client work I am usually learning. Right now that means AI assisted development with Claude Code, frontend engineering with Next.js, and building small products that solve practical problems.",
-  ],
+    {
+      text: "I discovered that I genuinely enjoyed taking an idea, breaking it down into smaller problems, and turning those problems into something that actually works. What began with learning the fundamentals of web development gradually grew into a serious passion for building software.",
+    },
+    {
+      text: "I started with HTML, CSS, and JavaScript, then went deeper into frameworks and backend development. Laravel opened the door to a much bigger world for me: databases, APIs, application architecture, authentication, testing, and the thinking that goes into building reliable systems. From there, I expanded into Livewire, React, Next.js, and the wider JavaScript ecosystem.",
+    },
+    { text: "But learning to code was only the beginning.", emphasis: true },
+    {
+      text: "Working on real projects taught me lessons that tutorials couldn't. I learned to navigate existing codebases, debug problems, work with imperfect requirements, design solutions, write tests, collaborate with other developers, and take ownership of features from idea to implementation.",
+    },
+    {
+      text: "Every project has challenged me in a different way and pushed me to think beyond simply making something work. I've become increasingly interested in building software that is maintainable, reliable, scalable and, most importantly, useful.",
+    },
+    {
+      text: "Today, I see software engineering as more than writing code.",
+      emphasis: true,
+    },
+    {
+      text: "It's about understanding a problem deeply enough to build the right solution.",
+      emphasis: true,
+    },
+    {
+      text: "I'm still learning, still experimenting, and still pushing myself to become a better engineer. The journey has taken me from writing my first lines of code to building full stack applications and solving real problems with technology.",
+    },
+    { text: "And I'm still getting there.", emphasis: true },
+  ] satisfies readonly AboutBlock[],
   nowHeading: "Working on now",
   now: [
     "Laravel, Livewire, React and Next.js in production",

@@ -28,10 +28,27 @@ export function About() {
             </Reveal>
 
             <Reveal delay={0.1}>
-              <div className="mt-8 flex max-w-[62ch] flex-col gap-5 text-base leading-relaxed text-muted">
-                {about.body.map((paragraph) => (
-                  <p key={paragraph.slice(0, 24)}>{paragraph}</p>
-                ))}
+              {/* Two levels only: the short beats sit up in ink at a larger
+                  size, the paragraphs stay muted body copy. Three levels with
+                  the lead above them is as much hierarchy as prose can carry. */}
+              <div className="mt-8 flex max-w-[62ch] flex-col gap-6">
+                {about.body.map((block) =>
+                  block.emphasis ? (
+                    <p
+                      key={block.text}
+                      className="text-lg leading-snug tracking-tight text-ink md:text-xl"
+                    >
+                      {block.text}
+                    </p>
+                  ) : (
+                    <p
+                      key={block.text}
+                      className="text-base leading-relaxed text-muted"
+                    >
+                      {block.text}
+                    </p>
+                  ),
+                )}
               </div>
             </Reveal>
           </div>
